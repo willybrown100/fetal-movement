@@ -18,7 +18,7 @@ const Counter = () => {
 
   // Timer and counter state
   const [isRunning, setIsRunning] = useState(false);
-  const [elapsedTime, setElapsedTime] = useState(0); // in seconds
+  const [elapsedTime, setElapsedTime] = useState(0);
   const [kickCount, setKickCount] = useState(0);
 
   // Show modal on mount
@@ -68,7 +68,7 @@ const Counter = () => {
 
   // Handler: Save session to storage
   const handleSave = () => {
-    const session = createSession(elapsedTime, kickCount); // Pass seconds directly
+    const session = createSession(elapsedTime, kickCount);
     saveSession(session);
     router.back();
   };
@@ -87,7 +87,6 @@ const Counter = () => {
       />
       <DashedBorder />
 
-      {/* Your gradient background */}
       <LinearGradient
         colors={["#f2e6f2", "#ffecef"]}
         start={{ x: 0.5, y: 0.5 }}
@@ -135,9 +134,6 @@ const Counter = () => {
               justifyContent: "center",
             }}
           >
-            {/* Outermost ring - largest, most transparent */}
-
-            {/* Middle ring */}
             <View
               style={{
                 position: "absolute",
@@ -163,7 +159,6 @@ const Counter = () => {
               }}
             />
 
-            {/* Center circle with timer */}
             <View
               style={{
                 width: 190,

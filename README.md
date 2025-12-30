@@ -14,7 +14,7 @@ A React Native mobile application for tracking fetal movements (kicks) during pr
 
 ### Prerequisites
 
-- Node.js (v16 or higher)
+- Node.js (v20 or higher)
 - npm or yarn
 - Expo CLI
 - iOS Simulator (for iOS) or Android Emulator/Device (for Android)
