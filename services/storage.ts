@@ -7,6 +7,21 @@ export const storage = createMMKV({
 
 // Storage keys
 const SESSIONS_KEY = 'fetal_movement_sessions';
+const MODAL_SEEN_KEY = 'info_modal_seen';
+
+/**
+ * Check if user has seen the info modal before
+ */
+export const hasSeenInfoModal = (): boolean => {
+  return storage.getBoolean(MODAL_SEEN_KEY) ?? false;
+};
+
+/**
+ * Mark info modal as seen
+ */
+export const markInfoModalAsSeen = (): void => {
+  storage.set(MODAL_SEEN_KEY, true);
+};
 
 // Session interface
 export interface Session {
@@ -67,7 +82,16 @@ export const createSession = (timeInSeconds: number, kicks: number = 10): Sessio
   
   // Get day name
   const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-  const day = days[now.getDay()];
+  const dayName = days[now.getDay()];
+  
+  // Check if today - show "Today" instead of day name
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const sessionDate = new Date(now);
+  sessionDate.setHours(0, 0, 0, 0);
+  const isToday = today.getTime() === sessionDate.getTime();
+  
+  const day = isToday ? 'Today' : dayName;
   
   // Format date
   const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];

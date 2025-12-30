@@ -234,7 +234,7 @@ const AppModal: React.FC<BlockUserModalProps> = ({
                 <Typography size={14} weight="700">
                   5.
                 </Typography>
-                <Typography size={14} weight="700">
+                <Typography size={14} style={{ flexShrink: 1 }} weight="700">
                   Count each kick. Keep counting until you get to 10 kicks /
                   flutters / swishes/rolls.
                 </Typography>

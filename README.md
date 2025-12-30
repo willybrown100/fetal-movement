@@ -187,6 +187,6 @@ This project was created as part of a technical assignment.
 
 ---
 
-**Developer**: [Your Name]  
+**Developer**: koja williams  
 **Date**: December 2025  
 **Framework**: React Native (Expo)

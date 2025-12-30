@@ -6,28 +6,38 @@ import PlayIcon from "@/components/Icons/PlayIcon";
 import AppModal from "@/components/modals/AppModal";
 import Typography from "@/components/Typography";
 import Wrapper from "@/components/Wrapper";
-import { createSession, saveSession } from "@/services/storage";
+import {
+  createSession,
+  hasSeenInfoModal,
+  markInfoModalAsSeen,
+  saveSession,
+} from "@/services/storage";
 import { LinearGradient } from "expo-linear-gradient";
 import { Link, router } from "expo-router";
 import { useEffect, useState } from "react";
-import { Pressable, View } from "react-native";
+import { Dimensions, Pressable, View } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const Counter = () => {
+  const screenWidth = Dimensions.get("window").width;
+  const isSmallDevice = screenWidth < 380;
+
   // Modal state
   const [visible, setVisible] = useState(false);
-
+  const insets = useSafeAreaInsets();
   // Timer and counter state
   const [isRunning, setIsRunning] = useState(false);
   const [elapsedTime, setElapsedTime] = useState(0);
-  const [kickCount, setKickCount] = useState(0);
 
-  // Show modal on mount
+  // Show modal only on first visit
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setVisible(true);
-    }, 200);
-
-    return () => clearTimeout(timer);
+    if (!hasSeenInfoModal()) {
+      const timer = setTimeout(() => {
+        setVisible(true);
+        markInfoModalAsSeen();
+      }, 200);
+      return () => clearTimeout(timer);
+    }
   }, []);
 
   // Timer logic - runs every second when isRunning is true
@@ -45,12 +55,7 @@ const Counter = () => {
     };
   }, [isRunning]);
 
-  // Auto-stop timer when 10 kicks reached
-  useEffect(() => {
-    if (kickCount >= 10) {
-      setIsRunning(false);
-    }
-  }, [kickCount]);
+  // Timer runs until user manually saves
 
   // Format time as MM:SS
   const formatTime = (seconds: number): string => {
@@ -68,13 +73,8 @@ const Counter = () => {
 
   // Handler: Save session to storage
   const handleSave = () => {
-    const session = createSession(elapsedTime, kickCount);
+    const session = createSession(elapsedTime, 10);
     saveSession(session);
-    router.back();
-  };
-
-  // Handler: Discard and go back
-  const handleDiscard = () => {
     router.back();
   };
 
@@ -100,9 +100,9 @@ const Counter = () => {
         <View
           style={{
             flex: 1,
-            // justifyContent: "center",
-
             alignItems: "center",
+            justifyContent: "flex-end",
+            paddingBottom: insets.bottom + 20,
           }}
         >
           <View>
@@ -111,7 +111,7 @@ const Counter = () => {
                 alignItems: "center",
                 width: 282,
                 height: 100,
-                marginTop: 90,
+                // marginTop: isSmallDevice ? 40 : 90,
                 borderRadius: 16,
                 padding: 16,
                 backgroundColor: "white",
@@ -179,8 +179,8 @@ const Counter = () => {
           <View
             style={{
               backgroundColor: "#FFFFFF",
-              marginTop: 70,
-              marginBottom: 70,
+              marginTop: isSmallDevice ? 40 : 70,
+              marginBottom: isSmallDevice ? 40 : 70,
               height: 72,
               width: 72,
               borderRadius: 72,
@@ -209,7 +209,13 @@ const Counter = () => {
           <View style={{ width: "100%" }}>
             <AppButton title="Save" handlePress={handleSave} />
           </View>
-          <Link style={{ marginTop: 30, width: 213 }} href="/counter">
+          <Link
+            style={{
+              marginTop: 30,
+              width: 213,
+            }}
+            href="/counter"
+          >
             <Typography
               size={18}
               style={{ marginTop: 20, textDecorationLine: "underline" }}

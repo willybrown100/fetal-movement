@@ -11,12 +11,12 @@ import { getSessionCount, getSessions, Session } from "@/services/storage";
 import MaskedView from "@react-native-masked-view/masked-view";
 import { BlurView } from "expo-blur";
 import { LinearGradient } from "expo-linear-gradient";
-import { useFocusEffect, useNavigation } from "expo-router";
+import { useFocusEffect, useRouter } from "expo-router";
 import { useCallback, useState } from "react";
 import { FlatList, ImageBackground, StyleSheet, View } from "react-native";
 
 export default function Index() {
-  const navigation = useNavigation();
+  const router = useRouter();
   const [sessions, setSessions] = useState<Session[]>([]);
   const [sessionCount, setSessionCount] = useState(0);
 
@@ -62,6 +62,12 @@ export default function Index() {
         ListHeaderComponent={
           <>
             <View style={styles.imageContainer}>
+              <View style={styles.saveButton}>
+                <BookmarkIcon />
+                <Typography weight="500" size={12}>
+                  Save
+                </Typography>
+              </View>
               <ImageBackground
                 source={require("/Users/inhousecodes/Desktop/Daily-Fetal-Movement-Tracker/assets/images/pregWoman.jpg")}
                 style={styles.imageBackground}
@@ -84,12 +90,6 @@ export default function Index() {
                   >
                     <View style={styles.contentContainer}>
                       <LeapIcon />
-                      <View style={styles.saveButton}>
-                        <BookmarkIcon />
-                        <Typography weight="600" size={14}>
-                          Save
-                        </Typography>
-                      </View>
                     </View>
                   </LinearGradient>
                 </View>
@@ -145,7 +145,7 @@ export default function Index() {
               className="justify-center  items-center mx-auto"
             >
               <AppButton
-                handlePress={() => navigation.navigate("counter")}
+                handlePress={() => router.push("/counter")}
                 title="Track Movements"
               />
               <Typography
@@ -197,6 +197,7 @@ const styles = StyleSheet.create({
   },
   imageContainer: {
     marginTop: 16,
+    position: "relative",
   },
   imageBackground: {
     height: 200,
@@ -210,17 +211,19 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   contentContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
+    justifyContent: "flex-start",
   },
   saveButton: {
     flexDirection: "row",
     alignItems: "center",
     gap: 6,
+    position: "absolute",
+    top: 13,
+    right: 16,
     height: 32,
-    backgroundColor: "#FFFFFF",
+    backgroundColor: Colors.white.main,
     paddingHorizontal: 16,
+    zIndex: 100,
     paddingVertical: 8,
     borderRadius: 24,
   },
