@@ -179,7 +179,6 @@ Built with modern React Native best practices:
 - Functional components with hooks
 - File-based routing with Expo Router
 - Fast local storage with MMKV
-- Responsive design with NativeWind
 
 ## 📄 License
 
