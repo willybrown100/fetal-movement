@@ -9,6 +9,7 @@ import {
   View,
 } from "react-native";
 import Modal from "react-native-modal";
+import BoldText from "../BoldText";
 import DashedBorder from "../DashedBorder";
 import CloseIcon from "../Icons/CloseIcon";
 import FootPrintIcon from "../Icons/FootPrintIcon";
@@ -161,12 +162,13 @@ const AppModal: React.FC<BlockUserModalProps> = ({
                   columnGap: 12,
                 }}
               >
-                <Typography size={14} weight="700">
+                <Typography size={14} weight="500">
                   1.
                 </Typography>
-                <Typography size={14} style={{ flexShrink: 1 }} weight="700">
-                  Choose a time when you are least distracted or when you
-                  typically feel the fetus move.
+                <Typography size={14} style={{ flexShrink: 1 }} weight="500">
+                  Choose a <BoldText text="time" /> when you are{" "}
+                  <BoldText text="least distracted" /> or when you typically{" "}
+                  <BoldText text="feel the fetus move." />
                 </Typography>
               </View>
               <View
@@ -179,12 +181,14 @@ const AppModal: React.FC<BlockUserModalProps> = ({
                   columnGap: 12,
                 }}
               >
-                <Typography size={14} weight="700">
+                <Typography size={14} weight="500">
                   2.
                 </Typography>
-                <Typography size={14} style={{ flexShrink: 1 }} weight="700">
-                  Get comfortable. Lie on your left side or sit with your feet
-                  propped up.
+                <Typography size={14} style={{ flexShrink: 1 }} weight="500">
+                  Get {""}
+                  <BoldText text="comfortable." /> Lie on your {""}
+                  <BoldText text="left side" />
+                  or sit with your feet propped up.
                 </Typography>
               </View>
               <View
@@ -197,11 +201,11 @@ const AppModal: React.FC<BlockUserModalProps> = ({
                   columnGap: 12,
                 }}
               >
-                <Typography size={14} weight="700">
+                <Typography size={14} weight="500">
                   3.
                 </Typography>
-                <Typography size={14} weight="700">
-                  Place your hands on your belly.
+                <Typography size={14} weight="500">
+                  Place your <BoldText text="hands on your belly." />
                 </Typography>
               </View>
               <View
@@ -217,8 +221,8 @@ const AppModal: React.FC<BlockUserModalProps> = ({
                 <Typography size={14} weight="700">
                   4.
                 </Typography>
-                <Typography size={14} weight="700">
-                  Start a timer or watch the clock.
+                <Typography size={14} weight="500">
+                  <BoldText text="Start a timer" /> or watch the clock.
                 </Typography>
               </View>
               <View
@@ -234,9 +238,10 @@ const AppModal: React.FC<BlockUserModalProps> = ({
                 <Typography size={14} weight="700">
                   5.
                 </Typography>
-                <Typography size={14} style={{ flexShrink: 1 }} weight="700">
-                  Count each kick. Keep counting until you get to 10 kicks /
-                  flutters / swishes/rolls.
+                <Typography size={14} style={{ flexShrink: 1 }} weight="500">
+                  <BoldText text="Count" /> each kick. Keep counting until you
+                  get to{" "}
+                  <BoldText text="10 kicks / flutters / swishes/rolls." />
                 </Typography>
               </View>
               <View
@@ -249,11 +254,12 @@ const AppModal: React.FC<BlockUserModalProps> = ({
                   columnGap: 12,
                 }}
               >
-                <Typography size={14} weight="700">
+                <Typography size={14} weight="500">
                   6.
                 </Typography>
-                <Typography size={14} style={{ flexShrink: 1 }} weight="700">
-                  Once you reach 10 kicks, jot down how many minutes it took.
+                <Typography size={14} style={{ flexShrink: 1 }} weight="500">
+                  Once you reach <BoldText text="10 kicks,jot down" /> how many{" "}
+                  <BoldText text="minutes" /> it took.
                 </Typography>
               </View>
             </View>

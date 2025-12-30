@@ -73,6 +73,7 @@ const Counter = () => {
 
   // Handler: Save session to storage
   const handleSave = () => {
+    if (!isRunning) return;
     const session = createSession(elapsedTime, 10);
     saveSession(session);
     router.back();

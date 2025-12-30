@@ -1,4 +1,5 @@
 import { Colors } from "@/constants/Colors";
+import { useState } from "react";
 import { TouchableOpacity } from "react-native";
 import Typography from "./Typography";
 
@@ -9,6 +10,20 @@ const AppButton = ({
   title: string;
   handlePress: () => void;
 }) => {
+  const [isDisabled, setIsDisabled] = useState(false);
+
+  const handleClick = () => {
+    if (isDisabled) return;
+
+    setIsDisabled(true);
+    handlePress();
+
+    // Re-enable after 500ms
+    setTimeout(() => {
+      setIsDisabled(false);
+    }, 500);
+  };
+
   return (
     <TouchableOpacity
       style={{
@@ -22,8 +37,10 @@ const AppButton = ({
         alignItems: "center",
         justifyContent: "center",
         borderRadius: 40,
+        opacity: isDisabled ? 0.6 : 1,
       }}
-      onPress={handlePress}
+      onPress={handleClick}
+      disabled={isDisabled}
     >
       <Typography
         weight="600"
